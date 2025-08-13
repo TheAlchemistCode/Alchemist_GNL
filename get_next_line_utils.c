@@ -51,7 +51,41 @@ char    *ft_substr(char *s, unsigned int start, size_t len)
     i = 0;
     while (i < len)
     {
-        str[i] // to be continued...
+    str[i] = s[start + i];
+    i++;
     }
+    str[i] = 0;
+    return (str)
+}
 
+char    *ft_strjoin(char *s1, char *s2)
+{
+    char    *s12;
+
+    if (!s1 || !s2)
+        return(NULL);
+
+    s12 = (char *)malloc((ft_strlen(s1) + ft_strlen(s2) + 1));
+        if(!s12)
+            return (NULL);
+        ft_joiner(s12, s1, s2);
+        return(s12);
+}
+
+void    ft_joiner(char *s12, const char *s1, const char *s2)
+{
+    size_t    i;
+    size_t    j;
+
+    i = 0;
+    j = 0;
+
+    if (!s12 || !s1 || !s2)
+        return;
+    while (s1[j])
+        s12[i++] = s1[j++];
+    j = 0;
+    while (s2[j])
+        s12[i++] = s2[j++];
+    s12[i] = '\0';
 }
