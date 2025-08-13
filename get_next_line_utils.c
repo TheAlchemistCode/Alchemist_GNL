@@ -25,7 +25,7 @@ size_t  ft_strlen(char *s)
     i = 0;
     while(s[i])
         i++;
-    return(i)
+    return(i);
 }
 
 char    *ft_substr(char *s, unsigned int start, size_t len)
@@ -43,8 +43,8 @@ char    *ft_substr(char *s, unsigned int start, size_t len)
         str[0] = '\0';
         return (str);
     }
-    if (len > strlen(s + start))
-        len = strlen(s + start);
+    if (len > ft_strlen(s + start))
+        len = ft_strlen(s + start);
     str = malloc((len + 1) * sizeof(char));
     if (!str)
         return (NULL);
@@ -55,7 +55,7 @@ char    *ft_substr(char *s, unsigned int start, size_t len)
     i++;
     }
     str[i] = 0;
-    return (str)
+    return (str);
 }
 
 char    *ft_strjoin(char *s1, char *s2)

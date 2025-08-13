@@ -30,7 +30,7 @@ static char *_01_stash_builder(int fd, char *stash, char *buffer)
 
     stash = ft_strjoin(tmp, buffer); //This is where the magic happens and behind strjoin we have - malloc(strlen(stash) + strlen(buffer) + 1); to allocate enough mem as stash is built.
     free(tmp);
-    tmp = NULL; // combines what the buffer and the stash
+    tmp = NULL;
 
     if (_03_ft_strchr(buffer, '\n')) // returns a char * in the first occurrence of \n
         break ;
@@ -102,6 +102,7 @@ char    *get_next_line(int fd)
     return (work_line);
 }
 
+#include <stdio.h>
 int main(void)
 {
     int fd = open("test.txt", O_RDONLY);
