@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clyon <clyon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/14 17:52:49 by clyon             #+#    #+#             */
-/*   Updated: 2025/08/14 18:10:54 by clyon            ###   ########.fr       */
+/*   Created: 2025/08/14 17:52:38 by clyon             #+#    #+#             */
+/*   Updated: 2025/08/14 18:20:44 by clyon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*ft_strdup(char *s1)
 {
 	char			*dest;
 	unsigned int	i;
 
-	dest = (char *)malloc(ft_strlen(s1) + 1);
+	dest = (char *) malloc(ft_strlen(s1) + 1);
 	if (!dest)
 		return (NULL);
 	i = 0;
@@ -32,7 +32,7 @@ char	*ft_strdup(char *s1)
 
 size_t	ft_strlen(char *s)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
 	while (s[i])
@@ -71,11 +71,9 @@ char	*ft_substr(char *s, unsigned int start, size_t len)
 
 char	*ft_strjoin(char *s1, char *s2)
 {
-	char	*s12;
+	char			*s12;
 
-	if (!s1 || !s2)
-		return (NULL);
-	s12 = (char *)malloc((ft_strlen(s1) + ft_strlen(s2) + 1));
+	s12 = (char *) malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
 	if (!s12)
 		return (NULL);
 	ft_joiner(s12, s1, s2);

@@ -1,20 +1,49 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clyon <clyon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/14 17:52:57 by clyon             #+#    #+#             */
-/*   Updated: 2025/08/14 17:52:57 by clyon            ###   ########.fr       */
+/*   Created: 2025/08/14 18:25:52 by clyon             #+#    #+#             */
+/*   Updated: 2025/08/14 18:25:52 by clyon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 static char	*_01_stash_builder(int fd, char *stash, char *buffer);
-static char	*_02_stash_trunc(char *work_line);
+static char	*_02_stash_trunc(char *line);
 static char	*_03_ft_strchr(char *s, int c);
+
+char	*get_next_line(int fd)
+{
+	static char	*stash[MAX_FD];
+	char		*line;
+	char		*buffer;
+	char		*temp;
+
+	buffer = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char));
+	if (fd < 0 || fd >= MAX_FD || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
+	{
+		free(stash[fd]);
+		free(buffer);
+		stash[fd] = NULL;
+		buffer = NULL;
+		return (NULL);
+	}
+	if (!buffer)
+		return (NULL);
+	line = _01_stash_builder(fd, stash[fd], buffer);
+	free(buffer);
+	buffer = NULL;
+	if (!line)
+		return (NULL);
+	temp = _02_stash_trunc(line);
+	free(stash[fd]);
+	stash[fd] = temp;
+	return (line);
+}
 
 static char	*_01_stash_builder(int fd, char *stash, char *buffer)
 {
@@ -47,15 +76,15 @@ static char	*_01_stash_builder(int fd, char *stash, char *buffer)
 
 static char	*_02_stash_trunc(char *work_line)
 {
-	ssize_t	i;
-	char	*stash;
+	char		*stash;
+	ssize_t		i;
 
 	i = 0;
 	while (work_line[i] != '\n' && work_line[i] != '\0')
 		i++;
 	if (work_line[i] == '\0' || work_line[i + 1] == '\0')
 		return (NULL);
-	stash = ft_substr(work_line, i + 1, ft_strlen(work_line) - (i + 1));
+	stash = ft_substr(work_line, i + 1, ft_strlen(work_line) - i - 1);
 	if (!stash || *stash == '\0')
 	{
 		free(stash);
@@ -78,56 +107,7 @@ static char	*_03_ft_strchr(char *s, int c)
 			return ((char *)&s[i]);
 		i++;
 	}
-	if (cc == '\0')
+	if (s[i] == cc)
 		return ((char *)&s[i]);
 	return (NULL);
 }
-
-char	*get_next_line(int fd)
-{
-	char		*work_line;
-	char		*buffer;
-	static char	*stash;
-	char		*temp; // new
-
-	buffer = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char));
-	if (!buffer)
-		return (NULL);
-	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
-	{
-		free(stash);
-		free(buffer);
-		stash = NULL;
-		return (NULL);
-	}
-	work_line = _01_stash_builder(fd, stash, buffer);
-	free(buffer);
-	if (!work_line)
-		return (NULL);
-	temp = _02_stash_trunc(work_line);
-	free(stash);
-	stash = temp;
-	return (work_line);
-}
-
-/*#include <stdio.h>
-
-int	main(void)
-{
-	int		fd;
-	char	*line;
-
-	fd = open("test.txt", O_RDONLY);
-	if (fd < 0)
-	{
-		perror("Error opening file");
-		return (1);
-	}
-	while ((line = get_next_line(fd)) != NULL)
-	{
-		printf("%s", line);
-		free(line);
-	}
-	close(fd);
-	return (0);
-}*/
