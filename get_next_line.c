@@ -39,6 +39,8 @@ static char	*_01_stash_builder(int fd, char *stash, char *buffer)
 		stash = ft_strjoin(tmp, buffer);
 		free(tmp);
 		tmp = NULL;
+		if (!stash)
+    		return (NULL);
 		if (_03_ft_strchr(buffer, '\n'))
 			break ;
 	}
@@ -105,7 +107,7 @@ char	*get_next_line(int fd)
 	if (!work_line)
 		return (NULL);
 	temp = _02_stash_trunc(work_line);
-	free(stash);
+	//free(stash);
 	stash = temp;
 	return (work_line);
 }
