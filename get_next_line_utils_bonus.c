@@ -6,7 +6,7 @@
 /*   By: clyon <clyon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 17:52:38 by clyon             #+#    #+#             */
-/*   Updated: 2025/08/14 18:20:44 by clyon            ###   ########.fr       */
+/*   Updated: 2025/08/15 18:23:01 by clyon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,20 +43,16 @@ size_t	ft_strlen(char *s)
 char	*ft_substr(char *s, unsigned int start, size_t len)
 {
 	size_t	i;
+	size_t	s_len;
 	char	*str;
 
 	if (!s)
 		return (NULL);
-	if (start > ft_strlen(s))
-	{
-		str = malloc(1);
-		if (!str)
-			return (NULL);
-		str[0] = '\0';
-		return (str);
-	}
-	if (len > ft_strlen(s + start))
-		len = ft_strlen(s + start);
+	s_len = ft_strlen(s);
+	if (start >= s_len)
+		return (ft_strdup(""));
+	if (len > s_len - start)
+		len = s_len - start;
 	str = malloc(len + 1);
 	if (!str)
 		return (NULL);
@@ -66,7 +62,8 @@ char	*ft_substr(char *s, unsigned int start, size_t len)
 		str[i] = s[start + i];
 		i++;
 	}
-	return (str[0] = '\0', str);
+	str[i] = '\0';
+	return (str);
 }
 
 char	*ft_strjoin(char *s1, char *s2)

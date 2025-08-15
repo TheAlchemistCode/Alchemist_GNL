@@ -40,7 +40,6 @@ char	*get_next_line(int fd)
 	if (!line)
 		return (NULL);
 	temp = _02_stash_trunc(line);
-	free(stash[fd]);
 	stash[fd] = temp;
 	return (line);
 }

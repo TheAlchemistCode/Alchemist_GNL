@@ -25,22 +25,20 @@ static char	*_01_stash_builder(int fd, char *stash, char *buffer)
 	while (b_read > 0)
 	{
 		b_read = read(fd, buffer, BUFFER_SIZE);
-		if (b_read == -1)
+		if (b_read <= 0)
 		{
-			free(stash);
-			return (NULL);
-		}
-		else if (b_read == 0)
+			if (b_read == -1)
+				return (free(stash), NULL);
 			break ;
+		}
 		buffer[b_read] = 0;
 		if (!stash)
 			stash = ft_strdup("");
 		tmp = stash;
 		stash = ft_strjoin(tmp, buffer);
 		free(tmp);
-		tmp = NULL;
 		if (!stash)
-    		return (NULL);
+			return (NULL);
 		if (_03_ft_strchr(buffer, '\n'))
 			break ;
 	}
@@ -90,7 +88,7 @@ char	*get_next_line(int fd)
 	char		*work_line;
 	char		*buffer;
 	static char	*stash;
-	char		*temp; // new
+	char		*temp;
 
 	buffer = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buffer)
@@ -107,7 +105,6 @@ char	*get_next_line(int fd)
 	if (!work_line)
 		return (NULL);
 	temp = _02_stash_trunc(work_line);
-	//free(stash);
 	stash = temp;
 	return (work_line);
 }

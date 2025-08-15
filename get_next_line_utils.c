@@ -6,7 +6,7 @@
 /*   By: clyon <clyon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 17:52:49 by clyon             #+#    #+#             */
-/*   Updated: 2025/08/14 18:10:54 by clyon            ###   ########.fr       */
+/*   Updated: 2025/08/15 17:47:22 by clyon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,34 +40,30 @@ size_t	ft_strlen(char *s)
 	return (i);
 }
 
-char *ft_substr(char *s, unsigned int start, size_t len)
+char	*ft_substr(char *s, unsigned int start, size_t len)
 {
-    size_t i;
-    char *str;
+	size_t	i;
+	size_t	s_len;
+	char	*str;
 
-    if (!s)
-        return (NULL);
-    if (start > ft_strlen(s))
-    {
-        str = malloc(1);
-        if (!str)
-            return (NULL);
-        str[0] = '\0';
-        return (str);
-    }
-    if (len > ft_strlen(s + start))
-        len = ft_strlen(s + start);
-    str = malloc(len + 1);
-    if (!str)
-        return (NULL);
-    i = 0;
-    while (i < len)
-    {
-        str[i] = s[start + i];
-        i++;
-    }
-    str[i] = '\0';
-    return (str);
+	if (!s)
+		return (NULL);
+	s_len = ft_strlen(s);
+	if (start >= s_len)
+		return (ft_strdup(""));
+	if (len > s_len - start)
+		len = s_len - start;
+	str = malloc(len + 1);
+	if (!str)
+		return (NULL);
+	i = 0;
+	while (i < len)
+	{
+		str[i] = s[start + i];
+		i++;
+	}
+	str[i] = '\0';
+	return (str);
 }
 
 char	*ft_strjoin(char *s1, char *s2)
