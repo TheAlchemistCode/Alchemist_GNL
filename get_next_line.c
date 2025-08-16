@@ -16,6 +16,13 @@ static char	*_01_stash_builder(int fd, char *stash, char *buffer);
 static char	*_02_stash_trunc(char *work_line);
 static char	*_03_ft_strchr(char *s, int c);
 
+
+/* 
+ * _01_stash_builder:
+ * Reads from the file descriptor into the buffer until either a newline
+ * is found or there is no more data to read. Appends each chunk to the stash.
+ * Returns the updated stash or NULL on error.
+ */
 static char	*_01_stash_builder(int fd, char *stash, char *buffer)
 {
 	ssize_t	b_read;
