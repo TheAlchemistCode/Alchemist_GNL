@@ -6,7 +6,7 @@
 /*   By: clyon <clyon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 17:53:10 by clyon             #+#    #+#             */
-/*   Updated: 2025/08/14 18:01:02 by clyon            ###   ########.fr       */
+/*   Updated: 2025/08/17 16:21:10 by clyon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@
 #  define BUFFER_SIZE 42
 # endif
 
-# include <stdlib.h>
-# include <unistd.h>
-# include <fcntl.h>
+# include <stdlib.h> //malloc, free, exit, memory and utility functions
+# include <unistd.h> //read, write, close
+# include <fcntl.h> //open, O_RDONLY, O_WRONLY
 
 char	*get_next_line(int fd);
 char	*ft_strdup(char *s1);

@@ -6,7 +6,7 @@
 /*   By: clyon <clyon@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 17:52:49 by clyon             #+#    #+#             */
-/*   Updated: 2025/08/15 17:47:22 by clyon            ###   ########.fr       */
+/*   Updated: 2025/08/17 16:44:52 by clyon            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,13 @@ size_t	ft_strlen(char *s)
 	return (i);
 }
 
+/*
+ * ft_substr:
+ * Allocates and returns a substring from the string 's'.
+ * The substring begins at index 'start' and is of maximum length 'len'.
+ * Handles edge cases: returns empty string if start is beyond the length of 's'.
+ * Returns NULL on allocation failure or if input string is NULL.
+ */
 char	*ft_substr(char *s, unsigned int start, size_t len)
 {
 	size_t	i;
@@ -51,7 +58,7 @@ char	*ft_substr(char *s, unsigned int start, size_t len)
 	s_len = ft_strlen(s);
 	if (start >= s_len)
 		return (ft_strdup(""));
-	if (len > s_len - start)
+	if (len > s_len - start) //if requested length goes beyond the end of the string, adjust to available length
 		len = s_len - start;
 	str = malloc(len + 1);
 	if (!str)

@@ -16,6 +16,14 @@ static char	*_01_stash_builder(int fd, char *stash, char *buffer);
 static char	*_02_stash_trunc(char *line);
 static char	*_03_ft_strchr(char *s, int c);
 
+/*
+ * get_next_line:
+ * Bonus version supporting multiple file descriptors.
+ * Uses a static stash array indexed by FD to store leftover data per file.
+ * Reads from the file, builds a line including '\n' (if any), and returns it.
+ * Stores any leftover after '\n' in stash[fd] for the next call.
+ * Returns NULL on error or when no more lines are available.
+ */
 char	*get_next_line(int fd)
 {
 	static char	*stash[MAX_FD];
